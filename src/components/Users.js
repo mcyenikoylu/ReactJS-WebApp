@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import User from './User';
 
 class Users extends Component {
     render() {
@@ -7,7 +8,13 @@ class Users extends Component {
         
         return (
             <div>
-                
+                {users.map(user => {
+                    return(
+                        <User Isim = {user.Isim}
+                        Departman = {user.Departman}
+                        Maas = {user.Maas} />
+                    )
+                })}                
             </div>
         )
     }
