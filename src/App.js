@@ -24,10 +24,14 @@ class App extends Component {
         <User Isim = "Canim Oglum Cenker" 
         Departman = "Game" 
   
-         /> */}
+         /> 
 
-        <Users users = {this.state.users} />
-      
+          <Users users = {this.state.users} />
+ */}
+        <Users  />
+     
+
+
       </div>
       );
   

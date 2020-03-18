@@ -22,6 +22,11 @@ class User extends Component {
         })
     }
 
+    onDeleteUser = (e) => {
+        //const{id} = this.props;
+
+    }
+
     render() {
 //javascript destructing ozelligi   <li>Isim : {this.props.Isim} </li>
         
