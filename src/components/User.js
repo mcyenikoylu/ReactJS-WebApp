@@ -37,14 +37,14 @@ const {isVisible} = this.state;
         <h4 className="d-inline" onClick = {this.onClickEvent.bind(this,34)}>{Isim}</h4>
         <i className="far fa-trash-alt" style={{cursor : "pointer"}}></i>
                     </div>
-                    <dic className="card-body">
+                    <div className="card-body">
                 {
-                isVisible != false ? <p className="card-text">Maas : {Maas}</p> 
+                isVisible !== false ? <p className="card-text">Maas : {Maas}</p> 
                 : null }
         <p className="card-text">Departman : {Departman}</p>
      
 
-                </dic>
+                </div>
                 </div>
                 
             </div>
