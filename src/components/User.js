@@ -1,46 +1,60 @@
 import React, { Component } from 'react'
 import propTypes from 'prop-types'
+import UserConsumer from '../context';
 
 class User extends Component {
 
     static defaultProps = {
+       
         Isim : "Deger yok",
         Departman : "Deger yok",
         Maas : false
     }
-    constructor(props){
-        super(props);
-        this.state = {
-            isVisible : false
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         isVisible : false
             
-        }
+    //     }
+    // }
+    state = {
+        isVisible : false
+        
     }
-    onClickEvent = (id,e) =>{
-        console.log(id);
+    onClickEvent = (e) =>{
+        
         this.setState({
             isVisible : !this.state.isVisible
         })
     }
 
-    onDeleteUser = (e) => {
-        //const{id} = this.props;
-
+    onDeleteUser = (dispatch,e) => {
+        const {id} = this.props;
+        dispatch({type : "DELETE_USER", payload:id});
+        //console.log(id);
     }
 
     render() {
 //javascript destructing ozelligi   <li>Isim : {this.props.Isim} </li>
         
-const {Isim,Departman,Maas} = this.props; 
+const {id,Isim,Departman,Maas} = this.props; 
 const {isVisible} = this.state;
 
-
+return(
+    <UserConsumer>
+        {
+            value => {
+                const {dispatch} = value;
 
         return (
             <div className = "col-md-8 mb-4">
                 <div className="card">
                     <div className="card-header d-flex justify-content-between">
-        <h4 className="d-inline" onClick = {this.onClickEvent.bind(this,34)}>{Isim}</h4>
-        <i className="far fa-trash-alt" style={{cursor : "pointer"}}></i>
+        <h4 className="d-inline" onClick = {this.onClickEvent}>{`${id} ${Isim}`}</h4>
+        
+        <i onClick = {this.onDeleteUser.bind(this,dispatch)} 
+        className="far fa-trash-alt" style={{cursor : "pointer"}}></i>
+        
                     </div>
                     <div className="card-body">
                 {
@@ -57,6 +71,11 @@ const {isVisible} = this.state;
 
 
         )
+            }
+        }
+    </UserConsumer>
+)
+
     }
 }
 User.propTypes = {
