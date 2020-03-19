@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": "2",
+      "Isim": "Cenk",
+      "Departman": "Dev",
+      "Maas": "45000"
+    },
+    {
+      "id": "3",
+      "Isim": "Berk",
+      "Departman": "Gamer",
+      "Maas": "6000"
+    }
+  ]
+}
