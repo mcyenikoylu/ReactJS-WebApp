@@ -16,11 +16,12 @@ class Users extends Component {
                                 {users.map(user => {
                                     return(
                                         <User 
+                                        key = {user.id} 
                                         id = {user.id}
                                         Isim = {user.Isim}
                                         Departman = {user.Departman}
                                         Maas = {user.Maas}
-                                        key = {user.id} />
+                                        />
                                     )
                                 })}                
                             </div>

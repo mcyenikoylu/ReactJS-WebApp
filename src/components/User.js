@@ -5,7 +5,7 @@ import UserConsumer from '../context';
 class User extends Component {
 
     static defaultProps = {
-       
+       id: '0',
         Isim : "Deger yok",
         Departman : "Deger yok",
         Maas : false
@@ -47,8 +47,8 @@ return(
                 const {dispatch} = value;
 
         return (
-            <div className = "col-md-8 mb-4">
-                <div className="card">
+            <div className = "col-md-8 mb-4" >
+                <div className="card" style={isVisible  ? {backgroundColor : "#62848d", color : "#fff"} : null} >
                     <div className="card-header d-flex justify-content-between">
         <h4 className="d-inline" onClick = {this.onClickEvent}>{`${id} ${Isim}`}</h4>
         
@@ -80,6 +80,8 @@ return(
 }
 User.propTypes = {
     Isim : propTypes.string.isRequired,
-    Departman : propTypes.string.isRequired
+    Departman : propTypes.string.isRequired,
+    Maas : propTypes.string.isRequired,
+    id: propTypes.string.isRequired
 }
 export default User;
