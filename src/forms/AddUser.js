@@ -55,7 +55,13 @@ changeInput = (e) => {
         [e.target.name] : e.target.value
     })
 }
-
+validateForm = () => {
+    const {Isim,Departman,Maas} = this.state;
+    if(Isim === "" || Departman === "" || Maas === "")
+        return false;
+    else
+        return true;
+}
 
 addUser = async (dispatch,e) =>{
     e.preventDefault();
@@ -67,12 +73,19 @@ addUser = async (dispatch,e) =>{
         Maas:Maas
         
     }
+    if(!this.validateForm())
+    {
+        this.setState({
+            error : true
+        })
+        return;
+    }
     const response = await Axios.post('http://localhost:3004/users',newUser)
     dispatch({type: "ADD_USER", payload: response.data});
 this.props.history.push("/");
 }
     render() {
-        const {isVisible,Isim,Departman,Maas} = this.state;
+        const {isVisible,Isim,Departman,Maas,error} = this.state;
 
 return<UserConsumer>
     {
@@ -89,7 +102,15 @@ return<UserConsumer>
                             <h4>Add User Form</h4>
     
                         </div>
+
     <div className="card-body">
+        {
+            error ? 
+            <div className="alert alert-danger">
+                Lutfen bos alan birakmayin.
+            </div>
+            : null
+        }
         <form onSubmit = {this.addUser.bind(this,dispatch)}>
             <div className="form-group">
                 <label htmlFor="name">Isim</label>

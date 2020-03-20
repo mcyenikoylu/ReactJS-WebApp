@@ -7,7 +7,8 @@ class UpdateUser extends Component {
     state = {
 Isim : "",
 Departman : "",
-Maas :""
+Maas :"",
+error : false
 
     }
 
@@ -16,7 +17,13 @@ changeInput = (e) => {
         [e.target.name] : e.target.value
     })
 }
-
+validateForm = () => {
+    const {Isim,Departman,Maas} = this.state;
+    if(Isim === "" || Departman === "" || Maas === "")
+        return false;
+    else
+        return true;
+}
 componentDidMount = async () => {
     const {id} = this.props.match.params;
     const res = await axios.get(`http://localhost:3004/users/${id}`);
@@ -37,7 +44,14 @@ updateUser = async (dispatch,e) =>{
         Isim,
         Departman,
         Maas
-    };
+    }
+    if(!this.validateForm())
+    {
+        this.setState({
+            error : true
+        })
+        return;
+    }
     const {id} = this.props.match.params;
 const res = await axios.put(`http://localhost:3004/users/${id}`,updated);
 dispatch({type: "UPDATE_USER", payload: res.data});
@@ -46,7 +60,7 @@ this.props.history.push("/");
   
 }
     render() {
-        const {Isim,Departman,Maas} = this.state;
+        const {Isim,Departman,Maas, error} = this.state;
 
 return<UserConsumer>
     {
@@ -62,6 +76,13 @@ return<UserConsumer>
     
                         </div>
     <div className="card-body">
+    {
+            error ? 
+            <div className="alert alert-danger">
+                Lutfen bos alan birakmayin.
+            </div>
+            : null
+        }
         <form onSubmit = {this.updateUser.bind(this,dispatch)}>
             <div className="form-group">
                 <label htmlFor="name">Isim</label>
