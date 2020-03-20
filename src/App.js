@@ -3,6 +3,8 @@ import './App.css';
 import Navbars from './components/Navbar'
 import Users from './components/Users'
 import AddUser from './components/AddUser'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import NotFoundPage from './components/NotFoundPage';
 
 class App extends Component {
   
@@ -12,6 +14,7 @@ class App extends Component {
 
     return (
 
+      <Router>
       <div className="container">
         
         <Navbars title = "User App" />
@@ -30,12 +33,14 @@ class App extends Component {
           <Users users = {this.state.users} />
  */}
 
- <AddUser />
-        <Users  />
-     
-
-
-      </div>
+ {/* <AddUser />
+        <Users  /> */}
+     <Switch>
+     <Route exact path = "/" component = {Users} />
+     <Route exact path = "/add" component = {AddUser} />
+<Route component = {NotFoundPage} />
+</Switch>
+      </div></Router>
       );
   
     }
