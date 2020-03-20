@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import propTypes from 'prop-types'
 import UserConsumer from '../context';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 class User extends Component {
 
@@ -64,8 +65,10 @@ return(
                 : null }
         <p className="card-text">Departman : {Departman}</p>
      
-
+        
                 </div>
+                
+                <Link to = {`edit/${id}`} className="btn btn-dark btn-block">Duzenle</Link>
                 </div>
                 
             </div>

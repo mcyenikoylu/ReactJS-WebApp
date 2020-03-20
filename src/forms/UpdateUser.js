@@ -1,54 +1,15 @@
 import React, { Component } from 'react'
-import posed from 'react-pose'
 import UserConsumer from '../context';
-import Axios from 'axios';
+import axios from 'axios';
 
-//var uniqid = require('uniqid');
-
-const Animation = posed.div({
-    visible : {
-        opacity : 1,
-applyAtStart : {
-    display : "block"}
-    },
-    hidden : {
-        opacity : 0,
-        applyAtEnd : {
-            display : "none"
-        }
-    }
-});
-
-class AddUser extends Component {
+class UpdateUser extends Component {
     
     state = {
-isVisible : false,
 Isim : "",
 Departman : "",
 Maas :""
 
     }
-changeVisibility = (e) => {
-    this.setState({
-        isVisible : !this.state.isVisible
-    })
-}
-
-// changeIsim = (e) => {
-// this.setState({
-//     Isim : e.target.value
-// })
-// }
-
-// changeDepartman = (e) => {
-//     this.setState({
-// Departman : e.target.value
-// })}
-
-// changeMaas = (e) => {
-//     this.setState({
-// Maas : e.target.value
-// })}
 
 changeInput = (e) => {
     this.setState({
@@ -56,22 +17,36 @@ changeInput = (e) => {
     })
 }
 
+componentDidMount = async () => {
+    const {id} = this.props.match.params;
+    const res = await axios.get(`http://localhost:3004/users/${id}`);
+    const {Isim,Departman,Maas} = res.data;
+    this.setState({
+        Isim,
+        Departman,
+        Maas
+    });
+}
 
-addUser = async (dispatch,e) =>{
+updateUser = async (dispatch,e) =>{
     e.preventDefault();
-    const {visible,Isim,Departman,Maas} = this.state;
-    const newUser = {
-        //id : uniqid(),
-        Isim:Isim,
-        Departman:Departman,
-        Maas:Maas
-        
-    }
-    const response = await Axios.post('http://localhost:3004/users',newUser)
-    dispatch({type: "ADD_USER", payload: response.data});
+  
+    const {Isim,Departman,Maas} = this.state;
+
+    const updated = {
+        Isim,
+        Departman,
+        Maas
+    };
+    const {id} = this.props.match.params;
+const res = await axios.put(`http://localhost:3004/users/${id}`,updated);
+dispatch({type: "UPDATE_USER", payload: res.data});
+
+this.props.history.push("/");
+  
 }
     render() {
-        const {isVisible,Isim,Departman,Maas} = this.state;
+        const {Isim,Departman,Maas} = this.state;
 
 return<UserConsumer>
     {
@@ -80,16 +55,14 @@ return<UserConsumer>
             return (
                 <div className="col-md-8 mb-4">
     
-            <button onClick={this.changeVisibility} 
-            className="btn btn-dark btn-block mb-2">{isVisible ? "Form Gizle" : "Form Goster"}</button>
-    <Animation pose={this.state.isVisible ? 'visible' : 'hidden'}>
+           
                     <div className="card">
                         <div className="card-header">
-                            <h4>Add User Form</h4>
+                            <h4>Update User Form</h4>
     
                         </div>
     <div className="card-body">
-        <form onSubmit = {this.addUser.bind(this,dispatch)}>
+        <form onSubmit = {this.updateUser.bind(this,dispatch)}>
             <div className="form-group">
                 <label htmlFor="name">Isim</label>
                 <input id="id"
@@ -121,11 +94,11 @@ return<UserConsumer>
                 value = {Maas}
                 onChange = {this.changeInput}></input>
             </div>
-            <button className="btn btn-danger btn-block"> Kaydet</button>
+            <button className="btn btn-danger btn-block" type="submit"> Guncelle</button>
         </form>
     </div>
                     </div>
-                    </Animation>
+                
                 </div>
             )
         }
@@ -135,4 +108,4 @@ return<UserConsumer>
        
     }
 }
-export default AddUser;
+export default UpdateUser;

@@ -13,10 +13,16 @@
       "Maas": "6000"
     },
     {
-      "Isim": "Cenker",
+      "Isim": "Cenker Adam",
       "Departman": "Youtuber",
       "Maas": "12353",
       "id": "VVKlDY9"
+    },
+    {
+      "Isim": "Vedat",
+      "Departman": "Elcetronic",
+      "Maas": "234234",
+      "id": "bB7LQxo"
     }
   ]
 }

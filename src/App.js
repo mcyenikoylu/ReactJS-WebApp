@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import Navbars from './components/Navbar'
+import Navbars from './layout/Navbar'
 import Users from './components/Users'
-import AddUser from './components/AddUser'
+import AddUser from './forms/AddUser'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import NotFoundPage from './components/NotFoundPage';
+import NotFoundPage from './pages/NotFoundPage';
+import UpdateUser from './forms/UpdateUser';
 
 class App extends Component {
-  
-  
 
   render(){
 
@@ -38,6 +37,9 @@ class App extends Component {
      <Switch>
      <Route exact path = "/" component = {Users} />
      <Route exact path = "/add" component = {AddUser} />
+
+<Route exact path = "/edit/:id" component = {UpdateUser} />
+
 <Route component = {NotFoundPage} />
 </Switch>
       </div></Router>
